@@ -1,5 +1,5 @@
 token_ = '1634751831:AAFyFGckSbKlusiNM5sqsQnd6lRWNzDZSRg'
-folder_id = "1CxamqSntnzkC770nLTHclRgpLPoxYE9s"
+folder_id = '18t0-Qi3fKMyu2bJe6diS3S_VJL0fE6qu'
 new_folder = folder_id
 docs_flag = True
 photo_flag = True
@@ -7,7 +7,7 @@ photo_flag = True
 ###############################################################
 
 SCOPE_      = 'https://www.googleapis.com/auth/drive'
-serviceKey_ = 'optical-caldron-304619-e2a0e6da4bc2.json'
+serviceKey_ = 'cloudbot-v-1-0-87c52ea45523.json'
 
 ###############################################################
 
