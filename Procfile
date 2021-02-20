@@ -1,1 +1,1 @@
-web: python ZatupBot.py
+worker: python ZatupBot.py

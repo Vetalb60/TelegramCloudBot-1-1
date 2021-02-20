@@ -3,8 +3,10 @@ import logging
 
 from GoogleDrive import *
 from Variables import *
+from flask import Flask, render_template
+from os import environ
 
-
+app = Flask(__name__, static_folder='static')
 bot = telebot.TeleBot(token_)
 
 @bot.message_handler(commands=['start'])
@@ -34,7 +36,9 @@ def anyFile_hendler(message):
     docs_flag = True
 
 
+
 def main(use_logging,level_name):
+    app.run(host ='0.0.0.0', port=environ.get("PORT", 5000))
     if use_logging:
         telebot.logger.setLevel(logging.getLevelName(level_name))
     bot.polling(none_stop = True,interval=.5)
