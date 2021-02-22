@@ -1,9 +1,11 @@
+#
+#   Variables.py
+#
 from google.oauth2 import service_account
-from googleapiclient.http import MediaIoBaseDownload,MediaFileUpload
+from googleapiclient.http import MediaFileUpload
 from googleapiclient.discovery import build
 from Variables import *
-import pprint
-import io
+import urllib.request
 import datetime
 import urllib.request
 
@@ -16,31 +18,33 @@ service = build('drive', 'v3', credentials = credentials)
 
 def createFolder():
     name = str(datetime.date.today())
-    file_metadata = {
+    folder_metadata = {
     'name': name,
     'mimeType': 'application/vnd.google-apps.folder',
-    'parents': [folder_id]
+    'parents': [folder_id_]
     }
-    return service.files().create(body=file_metadata,fields='id').execute()['id']
+    return service.files().create(body=folder_metadata,fields='id').execute()['id']
 
-def uploadFile(file_info,name):
-    results = service.files().list(pageSize=10,
-                                   fields="nextPageToken,"
-                                          "files(id, name, mimeType, parents, createdTime)",
-                                   q="mimeType contains 'application/vnd.google-apps.folder'").execute()
+
+def uploadFile(file_info,name,type):
+    results = service.files().list(pageSize = 10,fields = "nextPageToken, files(id, name)").execute()
+    global new_folder
     for i in range(len(results['files'])):
         if str(results['files'][i]['name']) == str(datetime.date.today()):
+            new_folder = str(results['files'][i]['id'])
             break;
         else:
-            global new_folder
-            new_folder = createFolder()
+            if i == len(results):
+                new_folder = createFolder()
+                break;
+
     file_metadata = {
         'name': name,
         'parents': [new_folder]
     }
-    logo = urllib.request.urlopen(file_path_ + file_info.file_path).read()
-    f = open(name, 'wb')
-    f.write(logo)
-    f.close()
-    media = MediaFileUpload(name)
-    service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+    urllib.request.urlretrieve(file_path_ + file_info.file_path, str(name))
+    media = MediaFileUpload(str(name))
+    if service.files().create(body=file_metadata, media_body=media, fields='id').execute():
+        return successMessage_
+    else:
+        return faliMessage_
