@@ -1,1 +1,1 @@
-worker: python ZatupBot.py
+worker: python CloudBot.py
