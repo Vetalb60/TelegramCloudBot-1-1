@@ -1,5 +1,5 @@
 #
-#   Variables.py
+#   GoogleDrive.py
 #
 from google.oauth2 import service_account
 from googleapiclient.http import MediaFileUpload
@@ -7,7 +7,6 @@ from googleapiclient.discovery import build
 from Variables import *
 import urllib.request
 import datetime
-import urllib.request
 
 SCOPES = [SCOPE_]
 SERVICE_ACCOUNT_FILE = serviceKey_
